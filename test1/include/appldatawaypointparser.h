@@ -25,9 +25,9 @@ public:
     ApplDataWaypointParser();
     virtual ~ApplDataWaypointParser();
 
-    virtual const char* tokenName() const;
-    virtual const char* className() const;
-    virtual const char* read(PsrTokenReader* inputStream);
+    virtual QString tokenName() const;
+    virtual QString className() const;
+    virtual QString read(PsrTokenReader* inputStream);
     virtual void write(PsrTokenWriter* outputStream, ItfInterfaceItem* item);
 
     void registerInterfaceItem(WaypointInterfaceItem *waypointInterfaceItem);
