@@ -10,8 +10,9 @@
 // Copyright (c) 2001, Holland Institute of Traffic Technology B.V.
 //------------------------------------------------------------------
 
-#include <emit/hrfunc.h>
+//#include <emit/hrfunc.h>
 
+#include <iostream>
 #include "reporter.hxx"
 
 //---------------------------------------------------------------------------
@@ -41,45 +42,45 @@ Reporter::~Reporter()
 }
 
 // --------------------------------------------------------------------------
-void printContext( const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+void printContext( const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
       if (context1.length() != 0)
       {
-          std::cout << " [ " << context1 << " ]";
+          std::cout << " [ " << context1.toStdString() << " ]";
       }
       if (context2.length() != 0)
       {
-          std::cout << " [ " << context2 << " ]";
+          std::cout << " [ " << context2.toStdString() << " ]";
       }
       if (context3.length() != 0)
       {
-          std::cout << " [ " << context3 << " ]";
+          std::cout << " [ " << context3.toStdString() << " ]";
       }
       if (context4.length() != 0)
       {
-          std::cout << " [ " << context4 << " ]";
+          std::cout << " [ " << context4.toStdString() << " ]";
       }
       if (context5.length() != 0)
       {
-          std::cout << " [ " << context5 << " ]";
+          std::cout << " [ " << context5.toStdString() << " ]";
       }
 }
 
 // --------------------------------------------------------------------------
 
-int Reporter::reportError(   const RWCString& mnemonic,
-                                const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+int Reporter::reportError(   const QString& mnemonic,
+                                const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
-    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Error   " << mnemonic;
+    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Error   " << mnemonic.toStdString();
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -87,15 +88,15 @@ int Reporter::reportError(   const RWCString& mnemonic,
 
 // --------------------------------------------------------------------------
 
-int Reporter::reportFatal(   const RWCString& mnemonic,
-                                const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+int Reporter::reportFatal(   const QString& mnemonic,
+                                const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
-    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Fatal   " << mnemonic;
+    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Fatal   " << mnemonic.toStdString();
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -103,15 +104,15 @@ int Reporter::reportFatal(   const RWCString& mnemonic,
 
 // --------------------------------------------------------------------------
 
-int Reporter::reportInfo(    const RWCString& mnemonic,
-                                const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+int Reporter::reportInfo(    const QString& mnemonic,
+                                const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
-    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Info    " << mnemonic;
+    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Info    " << mnemonic.toStdString();
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -119,15 +120,15 @@ int Reporter::reportInfo(    const RWCString& mnemonic,
 
 // --------------------------------------------------------------------------
 
-int Reporter::reportWarning( const RWCString& mnemonic,
-                                const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+int Reporter::reportWarning( const QString& mnemonic,
+                                const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
-    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Warning " << mnemonic;
+    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Warning " << mnemonic.toStdString();
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -135,15 +136,15 @@ int Reporter::reportWarning( const RWCString& mnemonic,
 
 // --------------------------------------------------------------------------
 
-int Reporter::reportOpaque(  const RWCString& mnemonic,
-                                const RWCString& context1,
-                                const RWCString& context2,
-                                const RWCString& context3,
-                                const RWCString& context4,
-                                const RWCString& context5)
+int Reporter::reportOpaque(  const QString& mnemonic,
+                                const QString& context1,
+                                const QString& context2,
+                                const QString& context3,
+                                const QString& context4,
+                                const QString& context5)
 {
-    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Opaque  " << mnemonic;
+    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Opaque  " << mnemonic.toStdString();
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;

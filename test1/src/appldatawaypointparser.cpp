@@ -35,23 +35,23 @@ ApplDataWaypointParser::~ApplDataWaypointParser()
 
 //-----------------------------------------------------------------------------
 //
-const char* ApplDataWaypointParser::className() const
+QString ApplDataWaypointParser::className() const
 {
     return m_ClassName;
 }
 
 //-----------------------------------------------------------------------------
 //
-const char* ApplDataWaypointParser::tokenName() const
+QString ApplDataWaypointParser::tokenName() const
 {
     return m_TokenName;
 }
 
 //-----------------------------------------------------------------------------
 //
-const char* ApplDataWaypointParser::read(PsrTokenReader* inputStream)
+QString ApplDataWaypointParser::read(PsrTokenReader* inputStream)
 {
-    RWCString token;
+    QString token;
     inputStream->getWord(token);
 
     if (token == "ID")
@@ -60,7 +60,7 @@ const char* ApplDataWaypointParser::read(PsrTokenReader* inputStream)
         inputStream->getInteger(value);
         m_WaypointInterfaceItem->id(value);
 
-        RWCString string;
+        QString string;
         inputStream->getString(string);
         m_WaypointInterfaceItem->name(string);
 

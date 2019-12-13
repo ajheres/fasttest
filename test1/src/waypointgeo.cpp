@@ -9,9 +9,6 @@
 //! $Id: waypointgeo.cpp 90358 2011-05-17 11:09:36Z smit $
 //-----------------------------------------------------------------------------
 
-#include <emit/hrtimesp.h>
-#include <rw/tpslist.h>
-
 #include <geo/geoarea.hxx>
 #include <geo/GeoLineStraight.hxx>
 #include <parser/parser.hxx>
@@ -98,7 +95,7 @@ void WaypointGeo::readFile(PsrParser *parser)
 {
     int      priority(1);
 
-    RWCString tokenRead = parser->read();
+    QString tokenRead = parser->read();
     while ( !parser->eof() )
     {
         if (tokenRead == "POLYGON")

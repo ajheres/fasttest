@@ -11,7 +11,6 @@
 #ifndef __WAYPOINTINTERFACEITEM_HXX__
 #define __WAYPOINTINTERFACEITEM_HXX__
 
-#include <rw/cstring.h>
 #include <itfitems/ItfIdentifiedInterfaceItem.hxx>
 
 class OrthoPosition;
@@ -23,10 +22,10 @@ public:
     WaypointInterfaceItem( const WaypointInterfaceItem& c );
     virtual ~WaypointInterfaceItem();
 
-    virtual const char* className() const;
+    virtual QString className() const;
 
 private:
-    static const char* m_ClassName;
+    static QString m_ClassName;
 };
 
 #endif

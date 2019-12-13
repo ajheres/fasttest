@@ -12,52 +12,52 @@
 #ifndef _REPORTER_HXX
 #define _REPORTER_HXX
 
-#include "hc/reporter.hxx"
+//#include "hc/reporter.hxx"
 #include "geo/georeporter.hxx"
 
 // The class Reporter is used to implement the report interface to
 // the ACMS library and the GEO library
-class Reporter : public HcReporter, public GeoReporter
+class Reporter: public GeoReporter
 {
 public:
 
     Reporter();
     virtual ~Reporter();
 
-    virtual int reportError (const RWCString& mnemonic,
-                        const RWCString& context1 = "",
-                        const RWCString& context2 = "",
-                        const RWCString& context3 = "",
-                        const RWCString& context4 = "",
-                        const RWCString& context5 = "");
+    virtual int reportError (const QString& mnemonic,
+                        const QString& context1 = "",
+                        const QString& context2 = "",
+                        const QString& context3 = "",
+                        const QString& context4 = "",
+                        const QString& context5 = "");
 
-    virtual int reportFatal (const RWCString& mnemonic,
-                        const RWCString& context1 = "",
-                        const RWCString& context2 = "",
-                        const RWCString& context3 = "",
-                        const RWCString& context4 = "",
-                        const RWCString& context5 = "");
+    virtual int reportFatal (const QString& mnemonic,
+                        const QString& context1 = "",
+                        const QString& context2 = "",
+                        const QString& context3 = "",
+                        const QString& context4 = "",
+                        const QString& context5 = "");
 
-    virtual int reportInfo (const RWCString& mnemonic,
-                        const RWCString& context1 = "",
-                        const RWCString& context2 = "",
-                        const RWCString& context3 = "",
-                        const RWCString& context4 = "",
-                        const RWCString& context5 = "");
+    virtual int reportInfo (const QString& mnemonic,
+                        const QString& context1 = "",
+                        const QString& context2 = "",
+                        const QString& context3 = "",
+                        const QString& context4 = "",
+                        const QString& context5 = "");
 
-    virtual int reportWarning (const RWCString& mnemonic,
-                        const RWCString& context1 = "",
-                        const RWCString& context2 = "",
-                        const RWCString& context3 = "",
-                        const RWCString& context4 = "",
-                        const RWCString& context5 = "");
+    virtual int reportWarning (const QString& mnemonic,
+                        const QString& context1 = "",
+                        const QString& context2 = "",
+                        const QString& context3 = "",
+                        const QString& context4 = "",
+                        const QString& context5 = "");
 
-    virtual int reportOpaque (const RWCString& mnemonic,
-                        const RWCString& context1 = "",
-                        const RWCString& context2 = "",
-                        const RWCString& context3 = "",
-                        const RWCString& context4 = "",
-                        const RWCString& context5 = "");
+    virtual int reportOpaque (const QString& mnemonic,
+                        const QString& context1 = "",
+                        const QString& context2 = "",
+                        const QString& context3 = "",
+                        const QString& context4 = "",
+                        const QString& context5 = "");
 };
 
 #endif /* _REPORTER_HXX */

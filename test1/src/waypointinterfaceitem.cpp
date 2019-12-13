@@ -11,7 +11,7 @@
 
 #include "waypointinterfaceitem.h"
 
-const char* WaypointInterfaceItem::m_ClassName = "WaypointInterfaceItem";
+QString WaypointInterfaceItem::m_ClassName = "WaypointInterfaceItem";
 
 //-----------------------------------------------------------------------------
 //
@@ -35,7 +35,7 @@ WaypointInterfaceItem::WaypointInterfaceItem( const WaypointInterfaceItem& c )
 
 //-----------------------------------------------------------------------------
 //
-const char* WaypointInterfaceItem::className() const
+QString WaypointInterfaceItem::className() const
 {
     return m_ClassName;
 }

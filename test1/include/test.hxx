@@ -12,13 +12,13 @@
 #ifndef _TEST_HXX
 #define _TEST_HXX
 
-#include <QTcpSocket>
+//#include <QTcpSocket>
 
 //class BaseComms;
 //class QNetworkReply;
 //class QXmlStreamReader;
 
-class Test : public QObject/*,
+class Test /*: public QObject,
              public QXmlDefaultHandler,
              public QXmlSimpleReader,
              public StmpHandler*/
@@ -30,8 +30,6 @@ class Test : public QObject/*,
         X2    =    1,
         X14
     };
-
-Q_OBJECT
 
 public:
 
@@ -52,9 +50,9 @@ public:
 
 //    bool unpack( StmpMsg* msg );
 
-public slots:
-    void connected();
-    void disconnected();
+//public slots:
+//    void connected();
+//    void disconnected();
 //    void finished( QNetworkReply * reply );
 
 private:
@@ -65,7 +63,7 @@ private:
 //    int               m_level;
 //    SingleShotTimer<Test>* m_timer1;
 //    PeriodicTimer<Test>*   m_timer2;
-    QTcpSocket client;
+    //QTcpSocket client;
 };
 
 #endif /* _TEST_HXX */
