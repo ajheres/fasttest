@@ -10,6 +10,7 @@
 // Copyright (c) 2001, Holland Institute of Traffic Technology B.V.
 //------------------------------------------------------------------
 #include <QtCore/QDebug>
+#include <QNetworkReply>
 #include <QCoreApplication>
 #include <QXmlStreamReader>
 #include <QRegExp>
@@ -23,7 +24,7 @@ Test::Test(/* BaseComms& comms, int type, bool output */)
 //        m_output( output ),
 //        m_level( 0 )
 {
-    //client.connectToHost("localhost", 40512);
+    client.connectToHost("localhost", 40512);
 //    setContentHandler(this);
 //    m_xml = new QXmlStreamReader;
 
@@ -41,15 +42,15 @@ Test::~Test()
 {
 }
 
-//void Test::connected()
-//{
-//    qDebug() << "connected";
-//}
+void Test::connected()
+{
+    qDebug() << "connected";
+}
 
-//void Test::disconnected()
-//{
-//    qDebug() << "disconnected";
-//}
+void Test::disconnected()
+{
+    qDebug() << "disconnected";
+}
 
 //void Test::timeout()
 //{

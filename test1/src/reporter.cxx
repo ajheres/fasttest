@@ -10,9 +10,8 @@
 // Copyright (c) 2001, Holland Institute of Traffic Technology B.V.
 //------------------------------------------------------------------
 
-//#include <emit/hrfunc.h>
+#include <emit/hrfunc.h>
 
-#include <iostream>
 #include "reporter.hxx"
 
 //---------------------------------------------------------------------------
@@ -50,23 +49,23 @@ void printContext( const QString& context1,
 {
       if (context1.length() != 0)
       {
-          std::cout << " [ " << context1.toStdString() << " ]";
+          std::cout << " [ " << context1 << " ]";
       }
       if (context2.length() != 0)
       {
-          std::cout << " [ " << context2.toStdString() << " ]";
+          std::cout << " [ " << context2 << " ]";
       }
       if (context3.length() != 0)
       {
-          std::cout << " [ " << context3.toStdString() << " ]";
+          std::cout << " [ " << context3 << " ]";
       }
       if (context4.length() != 0)
       {
-          std::cout << " [ " << context4.toStdString() << " ]";
+          std::cout << " [ " << context4 << " ]";
       }
       if (context5.length() != 0)
       {
-          std::cout << " [ " << context5.toStdString() << " ]";
+          std::cout << " [ " << context5 << " ]";
       }
 }
 
@@ -79,8 +78,8 @@ int Reporter::reportError(   const QString& mnemonic,
                                 const QString& context4,
                                 const QString& context5)
 {
-    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Error   " << mnemonic.toStdString();
+    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Error   " << mnemonic;
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -95,8 +94,8 @@ int Reporter::reportFatal(   const QString& mnemonic,
                                 const QString& context4,
                                 const QString& context5)
 {
-    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Fatal   " << mnemonic.toStdString();
+    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Fatal   " << mnemonic;
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -111,8 +110,8 @@ int Reporter::reportInfo(    const QString& mnemonic,
                                 const QString& context4,
                                 const QString& context5)
 {
-    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Info    " << mnemonic.toStdString();
+    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Info    " << mnemonic;
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -127,8 +126,8 @@ int Reporter::reportWarning( const QString& mnemonic,
                                 const QString& context4,
                                 const QString& context5)
 {
-    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Warning " << mnemonic.toStdString();
+    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Warning " << mnemonic;
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;
@@ -143,8 +142,8 @@ int Reporter::reportOpaque(  const QString& mnemonic,
                                 const QString& context4,
                                 const QString& context5)
 {
-    //std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
-    std::cout << "Opaque  " << mnemonic.toStdString();
+    std::cout << ::hrGetCurrentUtcTime().format("%d %b %H:%M:%S > ");
+    std::cout << "Opaque  " << mnemonic;
     printContext( context1, context2, context3, context4, context5 );
     std::cout << std::endl;
     return 0;

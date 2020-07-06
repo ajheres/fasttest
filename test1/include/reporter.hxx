@@ -12,12 +12,12 @@
 #ifndef _REPORTER_HXX
 #define _REPORTER_HXX
 
-//#include "hc/reporter.hxx"
+#include "hc/reporter.hxx"
 #include "geo/georeporter.hxx"
 
 // The class Reporter is used to implement the report interface to
 // the ACMS library and the GEO library
-class Reporter: public GeoReporter
+class Reporter : public HcReporter, public GeoReporter
 {
 public:
 

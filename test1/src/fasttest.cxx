@@ -8,14 +8,26 @@
 #include <QCoreApplication>
 #include <QtCore/QDebug>
 
-#include "test.hxx"
+#include "geoclient.h"
 
 #ifdef DITHEBBENWETOCHNIETNODIG
+#include <atcgeo/atcgeo.hxx>
+
+#include <geo/geoarea.hxx>
+#include <geo/geoarid.hxx>
+#include <geo/geoarinp.hxx>
+#include <geo/geoarsit.hxx>
+#include <geo/geoarsta.hxx>
+
+
+#include "reporter.hxx"
+#include "test.hxx"
 
 #include <tell/tell.h>
 #include <event/devctrl.h>
 #include <comms/comms.h>
-#include <comms/handler.h>
+#include "testhdlr.hxx"
+#include <inifile/inifile.h>
 
 
 #ifdef WIN32
@@ -42,15 +54,6 @@
 #include <tfp_i/plan.h>
 #include <tfp_i/depotplansmodmsg.h>
 
-#include <atcgeo/atcgeo.hxx>
-
-#include <geo/geoline.hxx>
-#include <geo/geolnid.hxx>
-#include <geo/geolinp.hxx>
-#include <geo/geolsit.hxx>
-#include <geo/geolsta.hxx>
-
-#include "reporter.hxx"
 #include "waypointgeo.h"
 
 #include <cmath>
@@ -225,7 +228,7 @@ double heading(double xVelocity, double yVelocity)
 
 void TestFileNames()
 {
-    RWCString       pathName;
+    QString       pathName;
 #ifdef UNIX
     pathName = "/HITT/tracking/users/Arjen/temp";
 #else
@@ -235,8 +238,8 @@ void TestFileNames()
 
 m_period->start( SP_SprayPeriod->get() );
 #ifdef UNIX
-    RWCString       name;
-    RWCString       extension;
+    QString       name;
+    QString       extension;
     size_t          length;
     struct dirent  *dirEntry;
     DIR            *directory;
@@ -266,7 +269,7 @@ m_period->start( SP_SprayPeriod->get() );
         closedir( directory );
     }
 #else
-    RWCString           search;
+    QString           search;
     struct _finddata_t  file;
     long                handle;
 
@@ -446,8 +449,8 @@ void TestRound()
 
 void ConvertTime()
 {
-    RWCString format( "%a %b %d %H:%M:%S.%u %Y" );
-    //RWCString format( "%H:%M:%S" );
+    QString format( "%a %b %d %H:%M:%S.%u %Y" );
+    //QString format( "%H:%M:%S" );
     char input[80];
     double seconds = hrTimeBaseUtc.getCurrentTime().getTotalUseconds()*1E-6;
 
@@ -541,7 +544,7 @@ void stdtest()
 
 //-----------------------------------------------------------------------------
 //
-static bool equalSmallStr( const RWCString& str1, const RWCString& str2 )
+static bool equalSmallStr( const QString& str1, const QString& str2 )
 {
    int length( str1.length() <str2.length() ? str1.length() : str2.length() ); //min
    return ( strncmp( str1.data(), str2.data(), length ) == 0 );
@@ -556,8 +559,8 @@ void testString()
     std::cout<< "str1 is " << (strcmp(str1.toUtf8().data(), str2.toUtf8().data())==0?"equal":"NOT equal") << " to str2\n";
     std::cout<< "str1 is " << (strncmp(str1.toUtf8().data(), str2.toUtf8().data(), length)==0?"equal":"NOT equal") << " to str2 for the first " << length << "\n";
 
-    RWCString stripped = "";
-    RWCString name = "name 1HFDF3[]";
+    QString stripped = "";
+    QString name = "name 1HFDF3[]";
     bool isStripped(false);
 
     for ( size_t i(0); i<name.length(); i++ )
@@ -626,7 +629,7 @@ public:
         IniFileAll      planFile( m_tmpFile.data() );
         IniFileSection* section = 0;
 
-        RWCString       sectionName;
+        QString       sectionName;
         sectionName = "[CALLSIGN]";
 
         section = new IniFileSection( sectionName );
@@ -658,60 +661,6 @@ public:
     std::string m_dstFile;
 };
 
-void TestGeo()
-{
-    //GeoTransController geotransController( "coord.ini", "tell.ini" );
-    Reporter reporter;
-
-    RWCString converter( "CCSensor2ToSystem" );
-
-    WaypointGeo geo( &reporter, "mis_line_crossing.cgm" );
-
-    RWTPtrSlist<GeoItem>* geoList = geo.getListOfGeoItems("GeoLine");
-    RWTPtrSlistIterator<GeoItem> geoIter(*geoList);
-    GeoItem* item;
-    while ( (item=geoIter()) != 0 )
-        std::cout << item->theIdentification()->name() << " ";
-    std::cout << " nr of lines " << geoList->entries() << std::endl;
-
-    int nrOfPos(11);
-    OrthoPosition pos[nrOfPos];
-    pos[0].update(11000,-15000);
-    pos[1].update(10700,-15100);
-    pos[2].update(10400,-15200);
-    pos[3].update(10100,-15300);
-    pos[4].update( 9800,-15400);
-    pos[5].update( 9500,-15500);
-    pos[6].update( 9200,-15600);
-    pos[7].update( 8900,-15700);
-    pos[8].update( 8600,-15800);
-    pos[9].update( 8300,-15900);
-    pos[10].update(8000,-16000);
-
-    GeoLineSituation sit( pos[0] );
-    for (int i(0); i<nrOfPos; i++)
-    {
-        GeoLineInput inp(pos[i]);
-        geo.check(&inp, &sit);
-
-        GeoState* state = sit.first();
-
-        while (state != 0)
-        {
-            GeoLineState* lineState = dynamic_cast<GeoLineState*>(state);
-            if ((lineState != 0) && lineState->isCrossing())
-            {
-                std::cout << "crossing: " << lineState->identification().name();
-            }
-            std::cout << "state: " << state->identification().name() << std::endl;
-
-            state = sit.next();
-        }
-    }
-
-    delete geoList;
-}
-
 void TestQHash()
 {
     for ( UINT_32 input(0); input<40000 ; input++ )
@@ -726,11 +675,11 @@ void TestGeoTrans()
 {
     CondensedInit* cInit= new CondensedInit;
 
-    cInit->SP_ProjectionMethod   =new RWCString("Mercator");
+    cInit->SP_ProjectionMethod   =new QString("Mercator");
     cInit->SP_Reference_Latitude =new double(51 + 52.53672/60);
     cInit->SP_Reference_Longitude=new double(5  + 54.69070/60);
-    cInit->SP_System_Datum       =new RWCString("WGE");
-    cInit->SP_External_Datum     =new RWCString("WGE");
+    cInit->SP_System_Datum       =new QString("WGE");
+    cInit->SP_External_Datum     =new QString("WGE");
     cInit->SP_System_Origin_Latitude  =new double(51 + 52.53672/60);
     cInit->SP_System_Origin_Longitude =new double(5  + 54.69070/60);
 
@@ -751,27 +700,134 @@ void TestGeoTrans()
     std::cout << "lat: " << latpos/M_PI*180 << "  long: " << longpos/M_PI*180 << std::endl;
 }
 
+void TestInifile()
+{
+    IniFileAll      iniFile( "/mnt/hgfs/share/atiini/ati_ini.use.fout");
+    iniFile.read();
+
+    std::cout<<iniFile.fileName().toUtf8().data()<<std::endl;
+    IniFileSection* section = iniFile.getFirstIniFileSection();
+    while (section !=0)
+    {
+        std::cout<< "[" << section->getSectionName().toUtf8().data() << "]" << std::endl;
+        QString* key = section->firstKey();
+        while (key !=0)
+        {
+            std::cout<< key->toUtf8().data() << ";";
+            IniArgList* argList = section->getArgList();
+            IniArgList::const_iterator iter = argList->begin();
+            if (iter != argList->end())
+            {
+                while (iter != argList->end())
+                {
+                    std::cout<< iter->toUtf8().data()<<"|";
+                    iter++;
+                }
+            }
+            else
+                std::cout<<" no args";
+            std::cout<<std::endl;
+            key = section->nextKey();
+        }
+        section = iniFile.getNextIniFileSection();
+    }}
 
 typedef unsigned int UINT_32;
+
+void TestGeo()
+{
+    //GeoTransController geotransController( "coord.ini", "tell.ini" );
+    Reporter reporter;
+
+    //QString converter( "CCSensor2ToSystem" );
+
+    //WaypointGeo geo( &reporter, "mis_line_crossing.cgm" );
+    AtcGeo geo( &reporter, "handover.cgm" );
+
+    QList<GeoItem*>* geoList = geo.getListOfGeoItems();
+    QListIterator<GeoItem*> geoIter(*geoList);
+    while ( geoIter.hasNext() )
+        std::cout << geoIter.next()->theIdentification()->name() << " ";
+    std::cout << " nr of items " << geoList->size() << std::endl;
+
+    delete geoList;
+
+    int nrOfPos(11);
+    OrthoPosition pos[nrOfPos];
+    pos[0].update(11000,-15000);
+    pos[1].update(600000,-1000000);
+    pos[2].update(665000,-1001900);
+    pos[3].update(538118.08,-91265.75);
+//    pos[4].update( 9800,-15400);
+//    pos[5].update( 9500,-15500);
+//    pos[6].update( 9200,-15600);
+//    pos[7].update( 8900,-15700);
+//    pos[8].update( 8600,-15800);
+//    pos[9].update( 8300,-15900);
+//    pos[10].update(8000,-16000);
+
+//    GeoLineSituation sit( pos[0] );
+//    for (int i(0); i<nrOfPos; i++)
+//    {
+//        GeoLineInput inp(pos[i]);
+//        geo.check(&inp, &sit);
+
+//        GeoState* state = sit.first();
+
+//        while (state != 0)
+//        {
+//            GeoLineState* lineState = dynamic_cast<GeoLineState*>(state);
+//            if ((lineState != 0) && lineState->isCrossing())
+//            {
+//                std::cout << "crossing: " << lineState->identification().name();
+//            }
+//            std::cout << "state: " << state->identification().name() << std::endl;
+
+//            state = sit.next();
+//        }
+//    }
+
+    GeoAreaSituation sit( pos[3] );
+    GeoAreaInput inp(pos[3]);
+    geo.check(&inp, &sit);
+    GeoState* state = sit.first();
+
+    while (state != 0)
+    {
+        GeoAreaState* areaState = dynamic_cast<GeoAreaState*>(state);
+        if ((areaState != 0) && areaState->isInside())
+        {
+            std::cout << "inside: " << areaState->identification().name();
+        }
+        std::cout << "state: " << state->identification().name() << std::endl;
+
+        state = sit.next();
+    }
+}
 #endif /*DITHEBBENWETOCHNIETNODIG*/
 
 int main (int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-//    DEventController evctrl;
-//    Comms comms( &evctrl );
+    //DEventController evctrl;
+    //Comms comms( &evctrl );
 
 //    // tell.reportInfo( "INFO_REPORT", "context1" );
-//    comms.parseSettings( "comms.ini" );
-//    //StmpHandler stmpHandler( &comms, "stmpHandler" );
+    //comms.parseSettings( "comms.ini" );
+    //TestHandler testHandler( &comms );
 
 //    Test test( comms );
-    Test test;
-//    evctrl.run();
+//    Test test;
+    //evctrl.run();
+
+    GeoClient GeoClient("127.0.0.1:8031");
     app.exec();
 
-//    TestGeoTrans();
+    // TestGeo();
+
+
+    // planFile.write();
 
     return 0;
 }
