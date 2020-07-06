@@ -1,0 +1,257 @@
+﻿syntax = "proto3";
+
+package mtm.geo.service;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+import "mtm/geo/messages/geo_message.proto";
+import "mtm/geo/model/geography.proto";
+import "mtm/geo/model/visual.proto";
+import "mtm/geo/model/geography_resource.proto";
+
+// Geo gRPC Service
+service GeoService
+{
+	// Subscribe to received Notifications when the Geography is updated.
+	rpc Subscribe (google.protobuf.Empty) returns (stream messages.GeoMessage) {}
+
+	// Get all Geographies
+	rpc GetGeographies(google.protobuf.Empty) returns (mtm.geo.model.GeographyList) {}
+
+	// Get specified Geography
+	rpc GetGeography(Uuid) returns (GeographyResponse) {}
+
+    // Add a Geography, return ID if successful
+	rpc AddGeography(AddGeographyParameters) returns (Uuid) {}
+
+	// Remove an existing Geography from the GeoServer, return true if successful.
+    rpc RemoveGeography(RemoveGeographyParameters) returns (BoolResponse) {}
+
+	// Remove a list of Geographies, return true if successful.
+	rpc RemoveGeographies(RemoveGeographiesParameters) returns (BoolResponse) {}
+
+	//  Edit/change properties of an GeoObject that already exists in the GeoServer.
+	rpc Edit(EditParameters) returns (EditResponse) {}
+
+	// Commit ongoing Edit
+    rpc Commit(CommitParameters) returns (google.protobuf.Empty) {}
+
+	// Rollback ongoing Edit, by User ID and object ID
+	rpc Rollback(RollbackParameters) returns (google.protobuf.Empty) {}
+
+	// Rollback ongoing Edit, by User ID
+	rpc Rollback2(Rollback2Parameters) returns (google.protobuf.Empty) {}
+
+	// Rollback ongoing Edit, by object ID
+	rpc Rollback3(Rollback3Parameters) returns (google.protobuf.Empty) {}
+
+	// Get all Visuals
+    rpc GetVisuals(google.protobuf.Empty) returns (mtm.geo.model.VisualList);
+
+	// Get all Visuals for specified User
+	rpc GetVisualsForUser(GetVisualsForUserParameters) returns (mtm.geo.model.VisualList) {}
+
+	// Add User Visual
+	rpc AddUserVisual(AddUserVisualParameters) returns (BoolResponse) {}
+
+	// Add User Visual 2
+    rpc AddUserVisual2(AddUserVisual2Parameters) returns (BoolResponse) {}
+
+	// Remove user Visual
+    rpc RemoveUserVisual(RemoveUserVisualParameters) returns (BoolResponse) {}
+
+	// Get Visual matching ID and User ID
+	rpc GetVisual(GetVisualParameters) returns (VisualResponse) {}
+
+	// Add a Bitmap
+    rpc AddBitmap(AddBitmapParameters) returns(Uuid) {}
+
+	// Add a Bitmap
+    rpc GetBitmap(GetBitmapParameters) returns(GetBitmapResponse) {}
+
+	// Get all GeographyResources
+	rpc GetGeographyResources(google.protobuf.Empty) returns (mtm.geo.model.GeographyResourceList) {}
+
+	// Remove GeographyResource
+	rpc RemoveGeographyResource(RemoveGeographyResourceParameters) returns (BoolResponse) {}
+
+	// Ping
+	rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}
+
+// Wrapper for Geography as a result from gRPC call
+message GeographyResponse
+{
+	mtm.geo.model.Geography geography = 1;
+}
+
+// Wrapper for Visual as a result from gRPC call
+message VisualResponse
+{
+	mtm.geo.model.Visual visual = 1;
+}
+
+message BoolResponse
+{
+	bool result = 1;
+}
+
+message AddGeographyParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Geography 
+	mtm.geo.model.Geography geography = 2;
+
+	// Visual for the Geography
+	mtm.geo.model.Visual visual = 3;
+}
+
+message RemoveGeographyParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Geography ID
+	Uuid geography_id = 2;
+}
+
+message RemoveGeographiesParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Geography IDs
+	repeated Uuid geography_ids = 2;
+}
+
+message EditParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Geography ID
+	Uuid geography_id = 2;
+}
+
+message CommitParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Geography 
+	mtm.geo.model.Geography geography = 2;
+
+	// Visual for the Geography
+	mtm.geo.model.Visual visual = 3;
+}
+
+message EditResponse
+{
+	// True if successful
+	bool result = 1;
+
+	// Geography to edit
+	mtm.geo.model.Geography geography = 2;
+
+	// Visual to edit
+	mtm.geo.model.Visual visual = 3;
+}
+
+message GetVisualsForUserParameters
+{
+	// User ID
+	uint32 user_id = 1;
+}
+
+message AddUserVisualParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Visual 
+	mtm.geo.model.Visual visual = 2;
+}
+
+message AddUserVisual2Parameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Visible
+	bool visible = 2;
+
+	// Geographies
+	repeated Uuid geography_ids = 3;
+}
+
+message RemoveUserVisualParameters
+{
+	// User ID
+	uint32 user_id = 1;
+	
+	// Visual ID
+	Uuid visual_id = 2;
+}
+
+message GetVisualParameters
+{
+	// User ID
+	uint32 user_id = 1;
+	
+	// Visual ID
+	Uuid visual_id = 2;
+}
+
+message AddBitmapParameters
+{
+	// User ID
+	uint32 user_id = 1;
+
+	// Bitmap name
+	string bitmap_name = 2;
+
+	// Bitmap data
+	bytes bitmap_data = 3;
+}
+
+message RollbackParameters
+{
+	// User ID
+	uint32 user_id = 1;
+	
+	// Object ID
+	Uuid object_id = 2;
+}
+
+message Rollback2Parameters
+{
+	// User ID
+	uint32 user_id = 1;
+}
+
+message Rollback3Parameters
+{
+	// Object ID
+	Uuid object_id = 1;
+}
+
+message RemoveGeographyResourceParameters
+{
+	// Geography Resource ID
+	Uuid geography_resource_id = 1;
+}
+
+message GetBitmapParameters
+{
+	// Geography Resource ID
+	Uuid geography_resource_id = 1;
+}
+
+message GetBitmapResponse
+{
+	// Bitmap data
+	google.protobuf.BytesValue bitmap_data = 1;
+}

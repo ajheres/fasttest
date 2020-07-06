@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+package mtm.geo.model;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+import "mtm/geo/model/geo_service_enums.proto";
+
+message GeographyResource
+{
+	// Version of the object
+	int32 primary_key = 1;
+
+    // The Geography ID
+	Uuid id = 2;
+
+	// Type of Geography Resource
+	GeographyResourceType geography_resource_type = 3;
+
+	// Name of the Geography
+	google.protobuf.StringValue name = 4;
+
+	// User ID of creator of the Geography
+	uint32 created_by = 5;
+
+	// Time of creation
+	google.protobuf.Timestamp created = 6;
+
+	// Time from which the Geography is valid
+	google.protobuf.Timestamp valid_from = 7;
+
+	// Time from which the Geography is no longer valid
+	google.protobuf.Timestamp valid_to = 8;
+
+	// True if the Geography is valid
+	bool is_valid = 9;
+}
+
+// List of GeographyResources
+message GeographyResourceList
+{
+	repeated GeographyResource geographyResources = 1;
+}

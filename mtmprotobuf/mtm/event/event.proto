@@ -1,0 +1,55 @@
+﻿syntax = "proto3";
+package mtm.event;
+import "google/protobuf/timestamp.proto";
+import "mtm/common_types.proto";
+import "mtm/event/argument.proto";
+
+message Event
+{
+	//Time (UTC) when the event was created represented as seconds and fractions of seconds at nanosecond resolution in UTC Epoch time.	
+	google.protobuf.Timestamp time = 1;
+	
+	// Event instance id
+	mtm.Uuid id = 2;
+
+	//Event type 
+	mtm.Uuid event_type_id = 3;
+
+	//The source system id for the event
+    uint32 source_system_id = 4;
+	
+	//The type of the source 
+    mtm.Uuid source_type = 5;
+
+	//System id of the node that sent the event
+    uint32 sent_by_system_id = 6;
+
+	//Type of the node that sent the event
+    mtm.Uuid sent_by_type = 7;
+
+	//If an want to specify an operator account id
+    uint32 operator_account_system_id = 8;
+
+	//Arguments (parameters) in protbuf format
+	repeated mtm.event.Argument arguments = 10;
+}
+
+//syntax = "proto3";
+//package mtm.event;
+
+//enum ArgumentType
+//{
+ //   ARGUMENT_TYPE_UNSPECIFIED = 0;
+  //  ARGUMENT_TYPE_SYSTEM_ID = 1;
+   // ARGUMENT_TYPE_PRIMARY_TRACK_ID = 2;
+//    ARGUMENT_TYPE_SECONDARY_TRACK_ID = 3;
+//    ARGUMENT_TYPE_PRIMARY_VESSEL_ID = 4;
+//    ARGUMENT_TYPE_SECONDARY_VESSEL_ID = 5;
+//    ARGUMENT_TYPE_PRIMARY_TRACK_INFO_ID = 6;
+//    ARGUMENT_TYPE_SECONDARY_TRACK_INFO_ID = 7;
+//    ARGUMENT_TYPE_AREA_ID = 8;
+//    ARGUMENT_TYPE_CAMERA_ID = 9;
+//    ARGUMENT_TYPE_TEXT = 10;
+//	ARGUMENT_TYPE_NUMERIC = 11;
+//	ARGUMENT_TYPE_EVENTID = 12;
+//}

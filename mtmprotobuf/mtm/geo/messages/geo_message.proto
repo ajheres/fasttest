@@ -1,0 +1,29 @@
+﻿syntax = "proto3";
+package mtm.geo.messages;
+
+import "mtm/geo/model/geography.proto";
+import "mtm/geo/model/geo_service_enums.proto";
+import "mtm/geo/model/visual.proto";
+import "mtm/geo/model/geography_resource.proto";
+
+message GeoMessage
+{
+	// User performing operation
+	uint32 user_id = 1;
+
+	// Type of operation performed
+	mtm.geo.model.Operation operation = 2;
+
+
+	// Operation data, one or more of these can be set
+
+	// Geography data
+	mtm.geo.model.Geography geography = 3;
+
+	// Visual data
+	mtm.geo.model.Visual visual = 4;
+
+	// Geography Resource data
+	mtm.geo.model.GeographyResource geography_resource = 5;
+	
+}

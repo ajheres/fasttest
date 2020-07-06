@@ -1,0 +1,18 @@
+### ELISE FILE FORMAT 1 ###
+
+##############################################################################
+# file       libraries
+# brief      Used includes and libraries
+#
+# author     SW Products
+# copyright  (c) 2005, HITT Traffic B.V.
+#
+# $Id: libraries,v 1.1.1.1 2005/06/21 14:35:42 heres Exp $
+##############################################################################
+
+../mtmprotobuf/include   ../mtmprotobuf/lib/[ELISE_PLATFORM]   mtmprotobuf[ELISE_EXT]
+##[ROMAS_DIR]/include      [ROMAS_DIR]/lib/[ELISE_PLATFORM]      [ROMAS_LIB]
+##[SAS_DIR]/include        [SAS_DIR]/lib/[ELISE_PLATFORM]        [SAS_LIB]
+##[MASK_DIR]/include       [MASK_DIR]/lib/[ELISE_PLATFORM]       [MASK_LIB]
+[GEO_DIR]/include        [GEO_DIR]/lib/[ELISE_PLATFORM]        [GEO_LIB]
+[GEOTRANS_DIR]/include   [GEOTRANS_DIR]/lib/[ELISE_PLATFORM]   [GEOTRANS_LIB]

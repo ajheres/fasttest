@@ -1,0 +1,49 @@
+﻿syntax = "proto3";
+package mtm.geo.model;
+
+// Dash style of line
+enum GeographyDashStyle
+{
+    GEOGRAPHYDASHSTYLE_SOLID = 0;
+    GEOGRAPHYDASHSTYLE_DASH = 1;
+    GEOGRAPHYDASHSTYLE_DOT = 2;
+    GEOGRAPHYDASHSTYLE_DASHDOT = 3;
+    GEOGRAPHYDASHSTYLE_DASHDOTDOT = 4;
+    GEOGRAPHYDASHSTYLE_CUSTOM = 5;
+}
+
+// Types of Geographies
+enum GeographyType
+{
+	GEOGRAPHYTYPE_UNKNOWN = 0;
+	GEOGRAPHYTYPE_POINT = 1;
+	GEOGRAPHYTYPE_LINE_STRING = 2;
+	GEOGRAPHYTYPE_POLYGON = 3;
+	GEOGRAPHYTYPE_CIRCLE = 4;
+	GEOGRAPHYTYPE_SECTOR = 5;
+	GEOGRAPHYTYPE_ROUTE = 6;
+	GEOGRAPHYTYPE_OVERLAY = 7;
+}
+
+// Geography permissions
+enum Permission
+{
+    PERMISSION_NONE = 0;
+    PERMISSION_READ = 1;
+    PERMISSION_WRITE = 2;
+}
+
+// Geography Resource Types
+enum GeographyResourceType
+{
+    GEOGRAPHYRESOURCETYPE_UNKNOWN = 0;
+    GEOGRAPHYRESOURCETYPE_BITMAP = 1;
+}
+
+ enum Operation
+{
+    OPERATION_UNKOWN = 0;
+    OPERATION_ADD = 1;
+    OPERATION_UPDATE = 2;
+    OPERATION_REMOVE = 3;
+}

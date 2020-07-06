@@ -1,0 +1,131 @@
+syntax = "proto3";
+package mtm.alert.model;
+import "google/protobuf/timestamp.proto";
+import "mtm/event/argument.proto";
+import "mtm/common_types.proto";
+
+message AlertInfo
+{
+    // The system id of the alert server that created the alert.
+	uint32 source = 1;
+
+    // The level of the alert.
+    AlertLevel alert_level = 2;
+
+    // The alert type id
+    Uuid alert_descriptor_type_id = 3;
+
+    // The id of this alert instance
+    Uuid instance_id = 4;
+
+    // Value indicating if the alert is acknowledged.
+    bool acknowledged = 5;
+
+    // Aalue indicating if the alert is active.
+    bool active = 6;
+
+    // Value indicating if the alert shall automatically be removed
+    // when not triggered any more. For example a system alert can be automatically 
+    // removed when the underlaying state is not active anymore, for example the base station is reconnected.
+    bool auto_remove = 7;
+
+    uint32 version = 8;
+
+    google.protobuf.Timestamp last_update = 9;
+
+    bool removed = 10;
+        
+    repeated mtm.event.Argument arguments = 11;
+
+    // The history events of the alert
+    repeated AlertInfoHistory history = 12;
+
+	/// A map of role ids and the amount of acknowledges needed for each role to acknowledge the alert.
+	/// Empty = default, meaning the alert will be acknowledged fully as soon as one entity acknowledges the alert.
+	/// Example: The alert needs 2 acknowledges from role id 1. Map would then be "1":"2"
+	map<uint32, uint32> roles_acknowledged_count = 13;
+
+	repeated uint32 accounts_acknowledged = 14;
+}
+
+message AlertLevelValue
+{
+	AlertLevel value = 1;
+}
+
+// Specifies the different levels of an alert.
+enum AlertLevel
+{
+    // Alert level Info
+    ALERT_LEVEL_UNSPECIFIED = 0;
+
+    // Alert level Info
+    ALERT_LEVEL_INFO = 1;
+
+    // Alert level Warning
+    ALERT_LEVEL_WARNING = 2;
+
+    // Alert level Alarm
+    ALERT_LEVEL_ALARM = 3;
+}
+
+message AlertInfoList
+{
+	repeated AlertInfo alert_infos = 1;
+}
+
+message AlertInfoHistory
+{
+    google.protobuf.Timestamp timestamp = 1;
+
+    uint32 account_id = 2;
+
+	oneof msg
+	{
+		Activated activated = 10;
+		Deactivated deactivated = 11;
+		StateChanged state_changed = 12;
+		Acknowledged acknowledged = 13;
+		Unacknowledged unacknowledged = 14;
+		CommentAdded comment_added = 15;
+		AutoRemoveEnabled auto_remove_enabled = 16;
+		AutoRemoveDisabled auto_remove_disabled = 17;
+		Removed removed = 18;
+	}
+}
+
+message Activated
+{
+}
+
+message Deactivated
+{
+}
+
+message StateChanged
+{
+    AlertLevel new_level = 1;
+}
+
+message Acknowledged
+{
+}
+message Unacknowledged
+{
+}
+
+message CommentAdded
+{
+	string comment = 1;
+}
+
+message AutoRemoveEnabled
+{
+}
+
+message AutoRemoveDisabled
+{
+}
+message Removed
+{
+}
