@@ -1,0 +1,2 @@
+protoc --python_out=mtm --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/geo/model/*.proto
+protoc --python_out=mtm --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/geo/service/*.proto
