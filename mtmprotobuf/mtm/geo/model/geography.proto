@@ -1,0 +1,77 @@
+﻿syntax = "proto3";
+package mtm.geo.model;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+import "mtm/geo/model/geo_service_enums.proto";
+
+message Geography
+{
+	// Version of the object
+	int32 primary_key = 1;
+
+    // The Geography ID
+	Uuid id = 2;
+
+	// Type of Geography
+	GeographyType geography_type = 3;
+
+	// Name of the Geography
+	google.protobuf.StringValue name = 4;
+
+	// User ID of creator of the Geography
+	uint32 created_by = 5;
+
+	// Time of creation
+	google.protobuf.Timestamp created = 6;
+
+	// User ID that last edited the Geography
+	uint32 edited_by = 7;
+
+	// Time of last edit
+	google.protobuf.Timestamp edited = 8;
+
+	// Description of the Geography
+	google.protobuf.StringValue description = 9;
+
+	// Time from which the Geography is valid
+	google.protobuf.Timestamp valid_from = 10;
+
+	// Time from which the Geography is no longer valid
+	google.protobuf.Timestamp valid_to = 11;
+
+	// True if the Geography is valid
+	bool is_valid = 12;
+
+	// Well Known Text definition of the Geography
+	google.protobuf.StringValue wkt = 13;
+
+	//Geography metadata
+	google.protobuf.StringValue meta = 14;
+
+	// Read / write premissions for the Geography
+	Permission public_permission = 15;
+
+	// Association to another object, such as a Route
+	// TBD - can we use "Any" as a replacement for C# "object" ? Do we need to?
+	// google.protobuf.Any tag = 16;
+
+	// Geography meta properties
+	GeographyMeta meta_properties = 17;
+
+	// ExtensionDataObject extension_data = 18;
+}
+
+// Geography metadata
+message GeographyMeta
+{
+	google.protobuf.StringValue texture = 1;
+	google.protobuf.StringValue path = 2;
+}
+
+// List of Geographies
+message GeographyList
+{
+	repeated Geography geographies = 1;
+}

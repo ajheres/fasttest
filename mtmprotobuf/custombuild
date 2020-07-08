@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# Use test instead of square brackets as elise will fiddle with those.
+# You can also use \[ \]
+#
+
+
+CLEAN=0
+BUILD=0
+for parm
+do
+    case "$parm" in
+    --doc)
+        GEN_DOC=1
+        ;;
+    --debug)
+        DEBUG=1
+        ;;
+    --rebuild)
+        CLEAN=1
+        BUILD=1
+        ;;
+    --build)
+        BUILD=1
+        ;;
+    --deploy*)
+        GEN_DOC=1
+        ;;
+    esac
+done
+
+if \[ $CLEAN -eq 1 \]
+then
+   make clean
+fi
+if \[ $BUILD -eq 1 \]
+then 
+   make protosrc
+   make
+fi
+
+exit 0

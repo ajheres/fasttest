@@ -1,0 +1,65 @@
+﻿syntax = "proto3";
+package mtm.alert.model;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "mtm/common_types.proto";
+import "mtm/event/argument_descriptor.proto";
+
+message AlertDescriptor
+{
+    /// The alert type id
+    Uuid type_id = 1;
+
+    /// The display name of the alert
+    string display_name = 2;
+
+    /// The format string used when showing details of the alert
+    string format_string = 3;
+
+    /// Value indicating if the alert shall automatically be removed
+    /// when not triggered any more. For example a system alert can be automatically 
+    /// removed when the underlaying state is not active anymore, for example the base station is reconnected.
+    bool auto_remove = 4;
+
+    /// Timespan used as delay when to remove an inactive alert if AutoRemove is true.
+    google.protobuf.Duration auto_remove_timeSpan = 5;
+
+    uint32 version = 6;
+
+    bool removed = 7;
+
+    /// The types of the parameters passed with an event of this type
+    repeated mtm.event.ArgumentDescriptor arguments = 8;
+
+    /// Used for record and replay
+    google.protobuf.Timestamp message_time = 9;
+
+    /// The id of the alert server that created the alert.
+    uint32 alert_server_id = 10;
+
+    /// A map of role ids and the amount of acknowledges needed for each role to acknowledge the alert.
+	/// Empty = default, meaning the alert will be acknowledged fully as soon as one entity acknowledges the alert.
+	/// Example: The alert needs 2 acknowledges from role id 1. Map would then be "1":"2"
+	map<uint32, uint32> roles_acknowledge_limit = 11;
+
+    // Value indicating if the alert descriptor was automatically created by an alert server
+    bool auto_created = 12;
+
+	// A list of group ids that are allowed to read alerts related to this descriptor
+	repeated uint32 read_access_groups = 13;
+
+	// A list of group ids that are allowed to write alerts related to this descriptor
+	repeated uint32 write_access_groups = 14;
+
+	// A list of group ids that are allowed to execute operations alerts related to this descriptor
+	repeated uint32 execute_access_groups = 15;
+
+    // Category id for the descriptor
+	Uuid category = 16;
+}
+
+message AlertDescriptorList
+{
+	repeated AlertDescriptor alert_descriptors = 1;
+}

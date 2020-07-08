@@ -9,6 +9,8 @@
 //! $Id: waypointgeo.cpp 90358 2011-05-17 11:09:36Z smit $
 //-----------------------------------------------------------------------------
 
+#include <emit/hrtimesp.h>
+
 #include <geo/geoarea.hxx>
 #include <geo/GeoLineStraight.hxx>
 #include <parser/parser.hxx>

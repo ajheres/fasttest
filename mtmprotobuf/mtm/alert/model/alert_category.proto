@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+package mtm.alert.model;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "mtm/common_types.proto";
+import "mtm/event/argument_descriptor.proto";
+
+message AlertCategory
+{
+    /// The alert category id
+    Uuid category_id = 1;
+
+    /// The display name of the alert
+    string display_name = 2;
+
+    /// Arcronym of the category
+    string acronym = 3;
+    
+    /// when set to true, this category cannot be used to create new data
+    bool removed = 4;
+}
+
+message AlertCategoryList
+{
+	repeated AlertCategory alert_categories = 1;
+}

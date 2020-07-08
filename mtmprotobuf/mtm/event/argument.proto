@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+package mtm.event;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+
+message Argument
+{
+	// Name of the argument
+	string name = 1;
+
+	// String represenatation of the content, for use in GUIs, e.g content is a UUid for a track, content_string is the track name
+	string content_string = 2;
+
+	// A process message packed as a Protobuf Any message, e.g. a Gateway
+	google.protobuf.Any content = 100;
+
+}
+
+message ArgumentCollection
+{
+	repeated Argument arguments = 1;
+}

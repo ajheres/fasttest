@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+package mtm.event.action;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/event/argument_descriptor.proto";
+import "mtm/common_types.proto";
+
+message ActionDescriptor
+{
+	// Action descriptor id
+	mtm.Uuid descriptorId = 1;
+
+	uint32 version = 2;
+
+	// Id of the providing service
+	mtm.Uuid providerId = 3;
+
+	// Parameters required by the action
+	//repeated mtm.event.ArgumentType parameters = 4;
+
+	// Localized display name
+	google.protobuf.StringValue displayName = 5;
+
+	// Short display name
+	google.protobuf.StringValue shortDisplayName = 6;
+
+	// Localized textual description
+	google.protobuf.StringValue description = 7;
+
+	//Time (UTC) when the action descriptor	
+	google.protobuf.Timestamp time = 8;
+
+	// Removed
+	google.protobuf.BoolValue removed = 9;
+
+	// Descriptors for arguments (parameters) required for this action.
+	repeated mtm.event.ArgumentDescriptor arguments = 10;
+}
+
+message ActionDescriptorCollection
+{
+	repeated ActionDescriptor data = 1;
+}

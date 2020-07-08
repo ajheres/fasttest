@@ -1,0 +1,9 @@
+.qmake.stash
+Makefile
+test1/Makefile
+test1/test1.pro
+test1/bin/
+mtmprotobuf/lib
+*.pro.user
+*/elise_unique_tag.h
+tmp

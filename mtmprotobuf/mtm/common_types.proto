@@ -1,0 +1,144 @@
+﻿syntax = "proto3";
+package mtm;
+import "google/protobuf/wrappers.proto";
+
+// Representing a UUID/GUID acording to RFC4122. All numbers in big endian representation.
+message Uuid
+{
+	bytes value = 1;
+}
+
+// Represents a generic structure to represent a socket end point
+message SocketAddress
+{
+	// Specifies the addressing scheme that an instance of the System.Net.Sockets.Socket
+	// class can use.
+	enum AddressFamily
+	{
+	    option allow_alias = true;
+
+		//     Unspecified address family.
+		ADDRESSFAMILY_UNSPECIFIED = 0;
+
+		//     Unknown address family.
+		ADDRESSFAMILY_UNKNOWN = -1;
+
+		//     Unix local to host address.
+		ADDRESSFAMILY_UNIX = 1;
+
+		//     Address for IP version 4.
+		ADDRESSFAMILY_INTER_NETWORK = 2;
+
+		//     ARPANET IMP address.
+		ADDRESSFAMILY_IMPLINK = 3;
+
+		//     Address for PUP protocols.
+		ADDRESSFAMILY_PUP = 4;
+
+		//     Address for MIT CHAOS protocols.
+		ADDRESSFAMILY_CHAOS = 5;
+
+		//     IPX or SPX address.
+		ADDRESSFAMILY_IPX = 6;
+
+		//     Address for Xerox NS protocols.
+		ADDRESSFAMILY_NS = 6;
+
+		//     Address for ISO protocols.
+		ADDRESSFAMILY_ISO = 7;
+
+		//     Address for OSI protocols.
+		ADDRESSFAMILY_OSI = 7;
+
+		//     European Computer Manufacturers Association (ECMA) address.
+		ADDRESSFAMILY_ECMA = 8;
+
+		//     Address for Datakit protocols.
+		ADDRESSFAMILY_DATAKIT = 9;
+
+		//     Addresses for CCITT protocols; such as X.25.
+		ADDRESSFAMILY_CCITT = 10;
+
+		//     IBM SNA address.
+		ADDRESSFAMILY_SNA = 11;
+
+		//     DECnet address.
+		ADDRESSFAMILY_DECNET = 12;
+
+		//     Direct data-link interface address.
+		ADDRESSFAMILY_DATALINK = 13;
+
+		//     LAT address.
+		ADDRESSFAMILY_LAT = 14;
+
+		//     NSC Hyperchannel address.
+		ADDRESSFAMILY_HYPERCHANNEL = 15;
+
+		//     AppleTalk address.
+		ADDRESSFAMILY_APPLETALK = 16;
+
+		//     NetBios address.
+		ADDRESSFAMILY_NETBIOS = 17;
+
+		//     VoiceView address.
+		ADDRESSFAMILY_VOICEVIEW = 18;
+
+		//     FireFox address.
+		ADDRESSFAMILY_FIREFOX = 19;
+
+		//     Banyan address.
+		ADDRESSFAMILY_BANYAN = 21;
+
+		//     Native ATM services address.
+		ADDRESSFAMILY_ATM = 22;
+
+		//     Address for IP version 6.
+		ADDRESSFAMILY_INTER_NETWORKV6 = 23;
+
+		//     Address for Microsoft cluster products.
+		ADDRESSFAMILY_CLUSTER = 24;
+
+		//     IEEE 1284.4 workgroup address.
+		ADDRESSFAMILY_IEEE12844 = 25;
+
+		//     IrDA address.
+		ADDRESSFAMILY_IRDA = 26;
+
+		//     Address for Network Designers OSI gateway-enabled protocols.
+		ADDRESSFAMILY_NETWORKDESIGNERS = 28;
+
+		//     MAX address.
+		ADDRESSFAMILY_MAX = 29;
+	}
+
+	// Byte structure
+	// 0, 1			Address family, network byte ordered. See enum AddressFamily for possible values
+	// 2 -			Family specific data, see below for some address families
+	// For more information about the structured data google.
+	//
+	// IP address specific
+	// 2, 3			Port, 16-bit TCP or UDP port number, network byte ordered
+	// IP v4 address specific
+	// 4 - 7		Address, 32-bit IPv4 address, network byte ordered
+	// IP v6 address specific
+	// 4 - 7		Flow information, always 0
+	// 8 - 23		Address, 128-bit IPv6 address, network byte ordered
+	// 24 - 27		Scope id, set of interfaces for a Scope
+	//
+	// Unix domain specific
+	// 2 - 106		Null terminated pathname		
+	bytes data = 2;	
+}
+
+// Message representing a Type URL
+message TypeUrl
+{
+	string value = 1;
+}
+
+message Location
+{
+        google.protobuf.DoubleValue latitude = 1;	// WGS84 Latitude in radians
+        google.protobuf.DoubleValue longitude = 2;  	// WGS84 Lontitude in radians
+        google.protobuf.DoubleValue altitude = 3;       // Altitude over WGS84 elliposoid in meter
+}

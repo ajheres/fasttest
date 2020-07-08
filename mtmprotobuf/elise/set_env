@@ -1,0 +1,8 @@
+### ELISE FILE FORMAT 1 ###
+##############################################################################
+# description      Environment settings (library paths and names)
+#
+# copyright (c) 2018, Saab Technologies B.V.
+##############################################################################
+ELISE_TARGET = mtmprotobuf
+ELISE_CUSTOMBUILD = custombuild

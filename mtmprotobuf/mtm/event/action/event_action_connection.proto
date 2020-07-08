@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+package mtm.event.action;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/event/argument.proto";
+import "mtm/common_types.proto";
+
+message EventActionConnection
+{
+	// Connection id
+	mtm.Uuid connectionId = 1;
+
+	// Event type id
+	mtm.Uuid eventId = 2;
+
+	// Action type id
+	mtm.Uuid actionId = 3;
+
+	//Time (UTC) when the action descriptor	
+	google.protobuf.Timestamp time = 4;
+
+	// Removed
+	google.protobuf.BoolValue removed = 5;
+
+	//Arguments (parameters) in protbuf format
+	repeated mtm.event.Argument arguments = 8;
+}
+
+message EventActionConnectionCollection
+{
+	repeated EventActionConnection data = 1;
+}

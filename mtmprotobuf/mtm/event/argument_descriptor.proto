@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+package mtm.event;
+
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+
+message ArgumentDescriptor
+{
+	// Name of the argument
+	string name = 1;
+
+	// Description of the argument
+	google.protobuf.StringValue description = 2;
+
+	// Indicates if the argument is optional
+	bool optional = 3;
+
+	// The Type URL of the argument.
+	TypeUrl type_url = 10;
+}

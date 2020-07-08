@@ -1,0 +1,17 @@
+### ELISE FILE FORMAT 1 ###
+
+##############################################################################
+# file       flags
+# brief      Environment settings (library paths and names)
+#
+# author     SW Products
+# copyright  (c) 2009, HITT Traffic B.V.
+#
+# $Id$
+##############################################################################
+
+QT += network
+##include( [IFHITT_IDL_DIR]/ifhitt_idl.pri )
+include( [QBC_DIR]/qbc.pri )
+
+LIBS += -lprotobuf -lgrpc++

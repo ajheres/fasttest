@@ -1,0 +1,35 @@
+﻿syntax = "proto3";
+package mtm.event;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/event/argument_descriptor.proto";
+import "mtm/common_types.proto";
+
+message EventDescriptor
+{
+	// Event descriptor type id
+	mtm.Uuid descriptorId = 1;
+
+	// Version
+	uint32 version = 2;
+
+	//Time (UTC) when the event descriptor was updated
+	google.protobuf.Timestamp time = 3;
+
+	// Localized display name
+	google.protobuf.StringValue displayName = 4;
+
+	// Format string
+	google.protobuf.StringValue formatString = 5;
+
+	// Removed
+	google.protobuf.BoolValue removed = 7;
+
+	// Descriptors for arguments (parameters) provided by the event.
+	repeated mtm.event.ArgumentDescriptor arguments = 8;
+}
+
+message EventDescriptorCollection
+{
+	repeated EventDescriptor data = 1;
+}

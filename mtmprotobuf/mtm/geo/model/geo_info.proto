@@ -1,0 +1,8 @@
+﻿syntax = "proto3";
+package mtm.geo.model;
+
+message GeoInfo
+{
+    // The system id of the Geo Server 
+	uint32 source = 1;
+}

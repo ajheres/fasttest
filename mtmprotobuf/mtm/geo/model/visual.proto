@@ -1,0 +1,70 @@
+﻿syntax = "proto3";
+package mtm.geo.model;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "mtm/common_types.proto";
+import "mtm/geo/model/geo_service_enums.proto";
+
+message Visual
+{
+	// Version of the object
+	int32 primary_key = 1;
+
+	// The Visual ID
+	Uuid id = 2;
+
+	// User ID of owner
+	uint32 owner = 3;
+
+	// Time from which the Visual is valid
+	google.protobuf.Timestamp valid_from = 4;
+
+	// Time from which the Visual is no longer valid
+	google.protobuf.Timestamp valid_to = 5;
+
+	// True if the Visual is valid
+	bool is_valid = 6;
+
+	// Name of texure
+	google.protobuf.StringValue texture = 7;
+
+	// Visual scale
+	int32 scale = 8;
+
+	// Visual fill color, as a ARGB value
+	int32 fill = 9;
+
+	// Visual stroke color, as a ARGB value
+	int32 stroke = 10;
+
+	// Visual stroke width
+	float stroke_width = 11;
+
+	// Dash style of Visual line
+	mtm.geo.model.GeographyDashStyle stroke_style = 12;
+
+	// Visual priority
+	int32 priority = 13;
+
+	// True if Visual is visible
+	bool visible = 14;
+
+	// True if Visual text show be shown
+	bool show_text = 15;
+
+	// Visual text
+	google.protobuf.StringValue text = 16;
+
+	// Association to another object, such as a Route
+	// TBD - can we use "Any" as a replacement for C# "object" ? Do we need to?
+	// google.protobuf.Any tag = 17;
+}
+
+// List of Visuals
+message VisualList
+{
+	repeated Visual visuals = 1;
+}
+
+
