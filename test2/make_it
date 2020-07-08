@@ -1,2 +1,8 @@
-protoc --python_out=mtm --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/geo/model/*.proto
-protoc --python_out=mtm --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/geo/service/*.proto
+protoc --python_out=. --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/*.proto ../mtmprotobuf/mtm/geo/*/*.proto
+protoc --grpc_out=. --plugin=protoc-gen-grpc=/usr/bin/grpc_python_plugin --proto_path=../mtmprotobuf ../mtmprotobuf/mtm/geo/service/*.proto
+touch mtm/__init__.py
+touch mtm/geo/__init__.py
+touch mtm/geo/messages/__init__.py
+touch mtm/geo/model/__init__.py
+touch mtm/geo/service/__init__.py
+
