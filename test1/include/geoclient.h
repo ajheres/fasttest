@@ -8,9 +8,8 @@ class GeoClient {
 public:
     GeoClient(std::string addr);
 
-    // Assembles the client's payload, sends it and presents the response back
-    // from the server.
-    void GetLocalServer();
+    void getAllItems();
+    void removeGeoItem();
 
 private:
     std::unique_ptr<mtm::geo::service::GeoService::Stub> stub_;

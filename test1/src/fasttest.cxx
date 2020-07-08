@@ -821,8 +821,10 @@ int main (int argc, char *argv[])
 //    Test test;
     //evctrl.run();
 
-    GeoClient GeoClient("127.0.0.1:8031");
-    app.exec();
+    GeoClient geoClient("10.111.1.201:8690");
+    geoClient.getAllItems();
+    geoClient.removeGeoItem();
+    // app.exec();
 
     // TestGeo();
 
